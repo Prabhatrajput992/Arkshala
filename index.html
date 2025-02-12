@@ -6,6 +6,7 @@
     <title>Product Showcase</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="pr.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <!-- Header Section -->
@@ -13,20 +14,13 @@
         <div class="logo">
             <img src="logo.png" alt="Logo">
         </div>
-        <!-- <nav>-->
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="product.html" class="nav-link">Products</a></li>
-                    <li><a href="about.html" class="nav-link">About Us</a></li>
-                </ul>
-            </nav>
-            
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="product.html" class="nav-link">Products</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+            </ul>
         </nav>
-        <!-- <div class="search-bar">
-            <input type="text" placeholder="Search products...">
-            <button>Search</button>
-        </div> -->
     </header>
 
     <!-- Hero Section -->
@@ -40,28 +34,28 @@
         </div>
     </section>
 
-<section>
-    <div class="product-container-top">
-        <div class="product-card">
-            <img src="img1.jpg" alt="Herbal Medicine">
-            <h3>Herbal Medicine</h3>
-            <p class="subtitle">Pure Ayurveda</p>
-            <p class="description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris aliquip</p>
+    <section>
+        <div class="product-container-top">
+            <div class="product-card">
+                <img src="img1.jpg" alt="Herbal Medicine">
+                <h3>Herbal Medicine</h3>
+                <p class="subtitle">Pure Ayurveda</p>
+                <p class="description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris aliquip</p>
+            </div>
+            <div class="product-card">
+                <img src="img2.jpg" alt="Fresh Product">
+                <h3>Fresh Product</h3>
+                <p class="subtitle">Herbal Medicine</p>
+                <p class="description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris aliquip</p>
+            </div>
+            <div class="product-card">
+                <img src="img3.jpg" alt="Total Care">
+                <h3>Total Care</h3>
+                <p class="subtitle">Pure Herbal</p>
+                <p class="description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris aliquip</p>
+            </div>
         </div>
-        <div class="product-card">
-            <img src="img2.jpg" alt="Fresh Product">
-            <h3>Fresh Product</h3>
-            <p class="subtitle">Herbal Medicine</p>
-            <p class="description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris aliquip</p>
-        </div>
-        <div class="product-card">
-            <img src="img3.jpg" alt="Total Care">
-            <h3>Total Care</h3>
-            <p class="subtitle">Pure Herbal</p>
-            <p class="description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris aliquip</p>
-        </div>
-    </div>
-</section>
+    </section>
 
 
 
@@ -95,9 +89,11 @@
                             `).join('');
                         })
                         .catch(error => console.error("Error loading products:", error));
-                </script>             
+                </script>
+            </div>
+        </div>
     </section>
-    <a href="product.html" class="see-more-btn">See More...</a>
+    <a href="product.html" class="see-more-btn">See More -></a>
     
 
 
@@ -135,8 +131,9 @@
 <!-- achivement -->
 <section>
     <div class="container">
-        <h2>Benefit From Choosing The Best</h2>
-        <p></p>
+        <div>
+            <h2>Benefit From Choosing The Best</h2>
+        </div>
         <div class="achievements">
             <div class="achievement-box">
                 <img src="award-icon.png" alt="Experience">
@@ -178,8 +175,6 @@
         
         }
 
-
-        
         window.onload = function() {
             animateValue("years", 0, 25, 2000);
             animateValue("customers", 0, 500, 2000);
@@ -187,8 +182,6 @@
             animateValue("purity", 0, 100, 2000);
         };
     </script>
-
-
 </section>
 
 
@@ -230,8 +223,9 @@
                     <a href="#"><i class="fab fa-pinterest"></i></a>
                 </div>
             </div>
+        </div>
         <div class="footer-bottom">
-          
+            &copy; 2025 Myra. All rights reserved.
         </div>
     </footer>
 </body>
