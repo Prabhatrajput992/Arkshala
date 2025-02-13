@@ -5,22 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Showcase</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="pr.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <!-- Header Section -->
     <header>
+        <div class="header-center">
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="product.html" class="nav-link">Products</a></li>
+                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                </ul>
+            </nav>
+            <div class="cart">
+                <a href="cart.html"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a>
+            </div>
+        </div>
         <div class="logo">
             <img src="logo.png" alt="Logo">
         </div>
-        <nav>
-            <ul>
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="product.html" class="nav-link">Products</a></li>
-                <li><a href="about.html" class="nav-link">About Us</a></li>
-            </ul>
-        </nav>
     </header>
 
     <!-- Hero Section -->
@@ -44,7 +48,6 @@
 
     <script src="pr.js"></script>
 
-
     <section>
         <div class="product-container-top">
             <div class="product-card">
@@ -52,30 +55,30 @@
                 <h3>Herbal Medicine</h3>
                 <p class="subtitle">Pure Ayurveda</p>
                 <p class="description">Pure and natural herbal products crafted for your health and well-being</p>
+                <div class="product-actions">
+                   
+                </div>
             </div>
             <div class="product-card">
                 <img src="img2.jpg" alt="Fresh Product">
                 <h3>Fresh Product</h3>
                 <p class="subtitle">Herbal Medicine</p>
                 <p class="description">Guaranteed freshness with every product, sourced from nature's best.</p>
+                <div class="product-actions">
+                    
+                </div>
             </div>
             <div class="product-card">
                 <img src="img3.jpg" alt="Total Care">
                 <h3>Total Care</h3>
                 <p class="subtitle">Pure Herbal</p>
-                <p class="description">Complete wellness solutions for a healthier and happier you." 🌿💚
-
-
-
-
-
-
-                </p>
+                <p class="description">Complete wellness solutions for a healthier and happier you." 🌿💚</p>
+                <div class="product-actions">
+                   
+                </div>
             </div>
         </div>
     </section>
-
-
 
     <!-- Product Grid Section -->
     <section class="product-section">
@@ -99,8 +102,9 @@
                                         <p class="price">₹${product.price}</p>
                                         <div class="rating">⭐ ${product.rating}</div>
                                     </div>
-                                    <div>
+                                    <div class="product-actions">
                                         <a href="${product.navigateUrl}" target="_blank" class="buy-now">Buy Now</a>
+                                        <button class="add-to-cart" onclick="addToCart('${product.name}', 1)">Add to Cart</button>
                                     </div>
                                 </div>
                             `).join('');
@@ -111,11 +115,8 @@
         </div>
     </section>
     <a href="product.html" class="see-more-btn">See More -></a>
-    
 
-
-
-    <!-- active nabvar -->
+    <!-- active navbar -->
     <script>
         function scrollLeft() {
             document.querySelector(".product-grid").scrollBy({ left: -300, behavior: 'smooth' });
@@ -125,8 +126,6 @@
             document.querySelector(".product-grid").scrollBy({ left: 300, behavior: 'smooth' });
         }
 
-
-       
         document.addEventListener("DOMContentLoaded", function () {
             // Get current URL
             let currentPage = window.location.pathname.split("/").pop();
@@ -141,68 +140,146 @@
                 }
             });
         });
-        
-
     </script>
-    
-<!-- achivement -->
-<section>
-    <div class="container">
-        <div>
-            <h2>Benefit From Choosing The Best</h2>
-        </div>
-        <div class="achievements">
-            <div class="achievement-box">
-                <img src="award-icon.png" alt="Experience">
-                <h3 id="years">0</h3>
-                <p>Years Experience</p>
-            </div>
-            <div class="achievement-box">
-                <img src="happy-customers.png" alt="Customers">
-                <h3 id="customers">0 </h3>
-                <p>Happy Customers</p>
-            </div>
-            <div class="achievement-box">
-                <img src="products-icon.png" alt="Products">
-                <h3 id="products">0</h3>
-                <p>Products</p>
-            </div>
-            <div class="achievement-box">
-                <img src="purity-icon.png" alt="Purity">
-                <h3 id="purity">0%</h3>
-                <p>Product Purity</p>
-            </div>
-        </div>
-    </div>
+
+    <!-- Cart Functionality -->
     <script>
-        function animateValue(id, start, end, duration) {
-            let obj = document.getElementById(id);
-            let range = end - start;
-            let current = start;
-            let increment = end > start ? 1 : -1;
-            let stepTime = Math.abs(Math.floor(duration / range));
-            let timer = setInterval(function() {
-                current += increment;
-                obj.textContent = current + (id === 'purity' ? '%' : '');
-                
-                if (current == end) {
-                    clearInterval(timer);
-                }
-            }, stepTime);
-        
+        let products = [];
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let cart = [];
+    
+        // Fetch product data from JSON file
+        fetch('product.json')
+            .then(response => response.json())
+            .then(data => {
+                products = data;
+                renderProducts();
+                updatePaginationButtons();
+            })
+            .catch(error => console.error("Error loading products:", error));
+    
+        function renderProducts(filteredProducts = products) {
+            const productContainer = document.getElementById("productGrid");
+            productContainer.innerHTML = "";
+    
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedItems = filteredProducts.slice(start, end);
+    
+            paginatedItems.forEach(product => {
+                const card = `
+                    <div class="product">
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <p class="price">₹${product.price}</p>
+                            <div class="rating">⭐ ${product.rating}</div>
+                        </div>
+                        <div class="product-actions">
+                            <a href="${product.navigateUrl}" target="_blank" class="buy-now">Buy Now</a>
+                            <button class="add-to-cart" onclick="addToCart('${product.name}', 1)">Add to Cart</button>
+                        </div>
+                    </div>
+                `;
+                productContainer.innerHTML += card;
+            });
+    
+            updatePaginationButtons(filteredProducts);
         }
-
-        window.onload = function() {
-            animateValue("years", 0, 25, 2000);
-            animateValue("customers", 0, 500, 2000);
-            animateValue("products", 0, 800, 2000);
-            animateValue("purity", 0, 100, 2000);
-        };
+    
+        function updatePaginationButtons(filteredProducts = products) {
+            document.getElementById("prevBtn").disabled = currentPage === 1;
+            document.getElementById("nextBtn").disabled = currentPage >= Math.ceil(filteredProducts.length / itemsPerPage);
+        }
+    
+        function changePage(step) {
+            const totalPages = Math.ceil(products.length / itemsPerPage);
+            if (currentPage + step >= 1 && currentPage + step <= totalPages) {
+                currentPage += step;
+                renderProducts();
+                updatePaginationButtons();
+            }
+        }
+    
+        function searchProducts() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const filteredProducts = products.filter(product => product.name.toLowerCase().includes(query));
+            currentPage = 1;
+            renderProducts(filteredProducts);
+            updatePaginationButtons(filteredProducts);
+        }
+    
+        function addToCart(productName, quantity) {
+            const product = cart.find(item => item.name === productName);
+            if (product) {
+                product.quantity += quantity;
+            } else {
+                cart.push({ name: productName, quantity });
+            }
+            updateCartCount();
+        }
+    
+        function updateCartCount() {
+            const cartCount = cart.reduce((total, product) => total + product.quantity, 0);
+            document.getElementById('cart-count').textContent = cartCount;
+        }
     </script>
-</section>
 
+    <!-- achivement -->
+    <section>
+        <div class="container">
+            <div>
+                <h2>Benefit From Choosing The Best</h2>
+            </div>
+            <div class="achievements">
+                <div class="achievement-box">
+                    <img src="award-icon.png" alt="Experience">
+                    <h3 id="years">0</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="achievement-box">
+                    <img src="happy-customers.png" alt="Customers">
+                    <h3 id="customers">0 </h3>
+                    <p>Happy Customers</p>
+                </div>
+                <div class="achievement-box">
+                    <img src="products-icon.png" alt="Products">
+                    <h3 id="products">0</h3>
+                    <p>Products</p>
+                </div>
+                <div class="achievement-box">
+                    <img src="purity-icon.png" alt="Purity">
+                    <h3 id="purity">0%</</h3>
+                    <p>Product Purity</p>
+                </div>
+            </div>
+        </div>
+        <script>
+            function animateValue(id, start, end, duration) {
+                let obj = document.getElementById(id);
+                let range = end - start;
+                let current = start;
+                let increment = end > start ? 1 : -1;
+                let stepTime = Math.abs(Math.floor(duration / range));
+                let timer = setInterval(function() {
+                    current += increment;
+                    obj.textContent = current + (id === 'purity' ? '%' : '');
+                    
+                    if (current == end) {
+                        clearInterval(timer);
+                    }
+                }, stepTime);
+            }
 
-
+            window.onload = function() {
+                animateValue("years", 0, 25, 2000);
+                animateValue("customers", 0, 500, 2000);
+                animateValue("products", 0, 800, 2000);
+                animateValue("purity", 0, 100, 2000);
+            };
+        </script>
+    </section>
 
     <!-- Fixed Footer Section -->
     <footer>
