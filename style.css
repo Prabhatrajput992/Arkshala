@@ -66,30 +66,104 @@ nav ul li a {
 }
 
 /* Hero Section Styling */
+/* Hero Section */
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0fff0;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4caf50;
+    padding: 15px 30px;
+    color: white;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+
+
+
+/* Hero Section */
 .hero {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 50px 20px;
-    background-color: #e8f5e9; /* Soft green background for hero section */
-}
-.hero-content h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
+    padding: 50px;
+    background-color: #e8f5e9;
 }
 
-.hero-content p {
+/* Hero Text */
+.hero-text {
+    width: 50%;
+}
+
+.hero h1 {
+    font-size: 32px;
+    color: #388e3c;
+}
+
+.hero p {
     font-size: 18px;
+    color: #555;
 }
 
-.hero-image img {
-    max-width: 100%;
-    height: auto;
+/* Slider */
+.slider {
+    width: 50%;
+    max-width: 500px;
+    position: relative;
+    overflow: hidden;
     border-radius: 10px;
 }
-.hero-content {
-    max-width: 50%;
+
+/* Slide Images */
+.slide {
+    display: none;
 }
+
+.slide img {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+}
+
+/* Fade Effect */
+.fade {
+    animation: fadeEffect 1.5s ease-in-out;
+}
+
+@keyframes fadeEffect {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
 
 /* 3 boxes */
 body{
@@ -203,63 +277,97 @@ h3 {
 
 
 
+
 /* Product Grid Styling */
 .product-section {
-    padding: 100px 120px;
-    text-align: center;
-    background-color: #f5f5f5; /* Neutral background for products */
+    padding: 50px 20px;
+    background-color: #f9f9f9;
 }
+
 .product-container {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    overflow: hidden;
-}
-.product {
-    background: #ffffff; /* White background for product cards */
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    text-align: left; /* Ensure general text alignment is left */
-}
-.product:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
-}
-.product-grid {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 10px;
-    white-space: nowrap;
 }
-.product-section h2 {
-    margin: 20px;
-    color: #4CAF50; /* Earthy green for headings */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
 }
+
 .product {
-    flex: 0 0 auto;
-    width: 220px;
-    background: white;
-    padding: 15px;
+    background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left; /* General alignment */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    overflow: hidden;
+    transition: transform 0.3s;
 }
+
+.product:hover {
+    transform: translateY(-10px);
+}
+
 .product img {
     width: 100%;
-    height: 3100px;
-    border-radius: 10px;
+    height: auto;
+    border-bottom: 1px solid #ddd;
 }
+
 .product-info {
-    margin-top: 10px;
-    text-align: left; /* Align all child elements to the left */
+    padding: 20px;
+    text-align: center;
+}
+
+.product-info h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.product-info .price {
+    font-size: 18px;
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+.product-info .rating {
+    font-size: 16px;
+    color: #ff9900;
+    margin-bottom: 10px;
+}
+
+.buy-now {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.buy-now:hover {
+    background-color: #388e3c;
+}
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Fixed the text overflow issue */

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Showcase</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <script src="pr.js" defer></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <!-- Header Section -->
@@ -21,53 +21,12 @@
             </ul>
         </nav>
         <div class="search-bar">
-            <input type="text" placeholder="Search products...">
-            <button>Search</button>
+            <input type="text" id="searchInput" placeholder="Search products..." oninput="searchProducts()">
+            <button onclick="searchProducts()">Search</button>
         </div>
     </header>
 
-    <!-- Product Grid Section 
-    <section class="product-section">
-        <h2>Featured Products</h2>
-        <div class="scroll-container">
-            <div class="product-grid">
-                
-                <script>
-                    // Fetch product data from JSON
-                    fetch('product.json')
-                        .then(response => response.json())
-                        .then(products => {
-                            const productContainer = document.querySelector('.product-grid');
-                
-                            // Generate product cards dynamically
-                            productContainer.innerHTML = products.map(product => `
-                                <div class="product">
-                                    <img src="${product.image}" alt="${product.name}">
-                                    <div class="product-info">
-                                        <h3>${product.name}</h3>
-                                        <p class="price">₹${product.price}</p>
-                                        <div class="rating">⭐ ${product.rating}</div>
-                                    </div>
-                                    <div>
-                                    <a href="${product.navigateUrl}" target="_blank"  class="buy-now">Buy Now</a>
-                                </div>
-                                </div>
-                            `).join('');
-                        })
-                        .catch(error => console.error("Error loading products:", error));
-                </script>
-              
-
-              
-               
-
-                
-               
-            </div>
-        </div>
-    </section>-->
-
-
+    <!-- Product Grid Section -->
     <section class="product-section">
         <h2>Featured Products</h2>
         <div class="product-grid" id="productGrid"></div>
@@ -79,133 +38,127 @@
             <button id="nextBtn" onclick="changePage(1)">Next</button>
         </div>
     </section>
-<script>
-    let products = [];
-    let currentPage = 1;
-    const itemsPerPage = 10;
 
-    // Fetch product data from JSON file
-    fetch('product.json')
-        .then(response => response.json())
-        .then(data => {
-            products = data;
-            renderProducts();
-            renderPagination();
-        })
-        .catch(error => console.error("Error loading products:", error));
+    <script>
+        let products = [];
+        let currentPage = 1;
+        const itemsPerPage = 10;
 
-    function renderProducts() {
-        const productContainer = document.getElementById("productGrid");
-        productContainer.innerHTML = "";
-
-        const start = (currentPage - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const paginatedItems = products.slice(start, end);
-
-        paginatedItems.forEach(product => {
-            const card = `
-                <div class="product">
-                    <img src="${product.image}" alt="${product.name}">
-                    <div class="product-info">
-                        <h3>${product.name}</h3>
-                        <p class="price">₹${product.price}</p>
-                        <div class="rating">⭐ ${product.rating}</div>
-                    </div>
-                    <a href="${product.navigateUrl}" target="_blank" class="buy-now">Buy Now</a>
-                </div>
-            `;
-            productContainer.innerHTML += card;
-        });
-
-        updatePaginationButtons();
-    }
-
-    function renderPagination() {
-        const paginationContainer = document.getElementById("pageNumbers");
-        paginationContainer.innerHTML = "";
-
-        const totalPages = Math.ceil(products.length / itemsPerPage);
-
-        for (let i = 1; i <= totalPages; i++) {
-            const pageBtn = document.createElement("button");
-            pageBtn.innerText = i;
-            pageBtn.classList.toggle("active", i === currentPage);
-            pageBtn.onclick = function () {
-                currentPage = i;
+        // Fetch product data from JSON file
+        fetch('product.json')
+            .then(response => response.json())
+            .then(data => {
+                products = data;
                 renderProducts();
                 renderPagination();
-            };
-            paginationContainer.appendChild(pageBtn);
+            })
+            .catch(error => console.error("Error loading products:", error));
+
+        function renderProducts(filteredProducts = products) {
+            const productContainer = document.getElementById("productGrid");
+            productContainer.innerHTML = "";
+
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedItems = filteredProducts.slice(start, end);
+
+            paginatedItems.forEach(product => {
+                const card = `
+                    <div class="product">
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <p class="price">₹${product.price}</p>
+                            <div class="rating">⭐ ${product.rating}</div>
+                        </div>
+                        <a href="${product.navigateUrl}" target="_blank" class="buy-now">Buy Now</a>
+                    </div>
+                `;
+                productContainer.innerHTML += card;
+            });
+
+            updatePaginationButtons(filteredProducts);
         }
-    }
 
-    function updatePaginationButtons() {
-        document.getElementById("prevBtn").disabled = currentPage === 1;
-        document.getElementById("nextBtn").disabled = currentPage >= Math.ceil(products.length / itemsPerPage);
-    }
+        function renderPagination(filteredProducts = products) {
+            const paginationContainer = document.getElementById("pageNumbers");
+            paginationContainer.innerHTML = "";
 
-    function changePage(step) {
-        const totalPages = Math.ceil(products.length / itemsPerPage);
-        if (currentPage + step >= 1 && currentPage + step <= totalPages) {
-            currentPage += step;
-            renderProducts();
-            renderPagination();
-        }
-    }
-</script>
+            const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
-
-<!-- active nabvar -->
-<script>
-    function scrollLeft() {
-        document.querySelector(".product-grid").scrollBy({ left: -300, behavior: 'smooth' });
-    }
-
-    function scrollRight() {
-        document.querySelector(".product-grid").scrollBy({ left: 300, behavior: 'smooth' });
-    }
-
-
-   
-    document.addEventListener("DOMContentLoaded", function () {
-        // Get current URL
-        let currentPage = window.location.pathname.split("/").pop();
-    
-        // Select all nav links
-        let navLinks = document.querySelectorAll(".nav-link");
-    
-        // Loop through links and add 'active' class to the current page
-        navLinks.forEach(link => {
-            if (link.getAttribute("href") === currentPage) {
-                link.classList.add("active");
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement("button");
+                pageBtn.innerText = i;
+                pageBtn.classList.toggle("active", i === currentPage);
+                pageBtn.onclick = function () {
+                    currentPage = i;
+                    renderProducts(filteredProducts);
+                    renderPagination(filteredProducts);
+                };
+                paginationContainer.appendChild(pageBtn);
             }
+        }
+
+        function updatePaginationButtons(filteredProducts = products) {
+            document.getElementById("prevBtn").disabled = currentPage === 1;
+            document.getElementById("nextBtn").disabled = currentPage >= Math.ceil(filteredProducts.length / itemsPerPage);
+        }
+
+        function changePage(step) {
+            const totalPages = Math.ceil(products.length / itemsPerPage);
+            if (currentPage + step >= 1 && currentPage + step <= totalPages) {
+                currentPage += step;
+                renderProducts();
+                renderPagination();
+            }
+        }
+
+        function searchProducts() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const filteredProducts = products.filter(product => product.name.toLowerCase().includes(query));
+            currentPage = 1;
+            renderProducts(filteredProducts);
+            renderPagination(filteredProducts);
+        }
+    </script>
+
+    <!-- active navbar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get current URL
+            let currentPage = window.location.pathname.split("/").pop();
+        
+            // Select all nav links
+            let navLinks = document.querySelectorAll(".nav-link");
+        
+            // Loop through links and add 'active' class to the current page
+            navLinks.forEach(link => {
+                if (link.getAttribute("href") === currentPage) {
+                    link.classList.add("active");
+                }
+            });
         });
-    });
-    
-
-</script>
-
+    </script>
 
     <!-- Fixed Footer Section -->
     <footer>
         <div class="footer-content">
             <div class="footer-section">
                 <h2>Myra</h2>
-                <p>Subscribe to Easy Tutorials YouTube channel to watch more videos on website development and get notifications.</p>
+                <p>Our website offers high-quality Ayurvedic products, expert curation, and the best deals—all in one place for your wellness needs!</p>
             </div>
             <div class="footer-section">
                 <h2>Office</h2>
-                <p>ITPL Road<br>Whitefield, Bangalore<br>Karnataka, PIN 560066, India</p>
-                <p>avinashtdm@outlook.com</p>
+                <p>ring road jnu<br>new delhi<br>delhi, PIN 110067, India</p>
+                <p><i class="fas fa-envelope"></i> lordprabhat@gmail.com</p>
                 <p>+91 - 0123456789</p>
             </div>
             <div class="footer-section">
                 <h2>Links</h2>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Services</a></li>
+                    <li><a href="#">products</a></li>
                     <li><a href="#">About Us</a></li>
-                    <li><a href="#">Features</a></li>
                     <li><a href="#">Contacts</a></li>
                 </ul>
             </div>
@@ -224,6 +177,7 @@
             </div>
         </div>
         <div class="footer-bottom">
+            &copy; 2025 Myra. All rights reserved.
         </div>
     </footer>
 </body>

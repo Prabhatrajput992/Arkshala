@@ -24,15 +24,26 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
+    <section class="hero">
+        <div class="hero-text">
             <h1>Welcome to Our Product Showcase</h1>
             <p>Explore top products with the best deals.</p>
         </div>
-        <div class="hero-image">
-            <img src="home.png" alt="Banner Image">
+        <div class="slider">
+            <div class="slide fade">
+                <img src="home.png" alt="Product Image 1">
+            </div>
+            <div class="slide fade">
+                <img src="logo.jpg" alt="Product Image 2">
+            </div>
+            <div class="slide fade">
+                <img src="logo.png" alt="Product Image 3">
+            </div>
         </div>
     </section>
+
+    <script src="pr.js"></script>
+
 
     <section>
         <div class="product-container-top">
@@ -40,19 +51,26 @@
                 <img src="img1.jpg" alt="Herbal Medicine">
                 <h3>Herbal Medicine</h3>
                 <p class="subtitle">Pure Ayurveda</p>
-                <p class="description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris aliquip</p>
+                <p class="description">Pure and natural herbal products crafted for your health and well-being</p>
             </div>
             <div class="product-card">
                 <img src="img2.jpg" alt="Fresh Product">
                 <h3>Fresh Product</h3>
                 <p class="subtitle">Herbal Medicine</p>
-                <p class="description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris aliquip</p>
+                <p class="description">Guaranteed freshness with every product, sourced from nature's best.</p>
             </div>
             <div class="product-card">
                 <img src="img3.jpg" alt="Total Care">
                 <h3>Total Care</h3>
                 <p class="subtitle">Pure Herbal</p>
-                <p class="description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris aliquip</p>
+                <p class="description">Complete wellness solutions for a healthier and happier you." 🌿💚
+
+
+
+
+
+
+                </p>
             </div>
         </div>
     </section>
@@ -63,9 +81,8 @@
     <section class="product-section">
         <h2>Featured Products</h2>
         <div class="product-container">
-            <!-- <button class="arrow left-arrow" onclick="scrollLeft()">&#10094;</button> -->
             <div class="product-grid">
-                <!-- 12 Example Products for 3 Rows x 4 Columns -->
+                <!-- 8 Example Products for 2 Rows x 4 Columns -->
                 <script>
                     // Fetch product data from JSON
                     fetch('product.json')
@@ -73,8 +90,8 @@
                         .then(products => {
                             const productContainer = document.querySelector('.product-grid');
                 
-                            // Limit to max 20 products and generate product cards dynamically
-                            productContainer.innerHTML = products.slice(0, 20).map(product => `
+                            // Limit to max 8 products and generate product cards dynamically
+                            productContainer.innerHTML = products.slice(0, 10).map(product => `
                                 <div class="product">
                                     <img src="${product.image}" alt="${product.name}">
                                     <div class="product-info">
@@ -192,21 +209,20 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h2>Myra</h2>
-                <p>Subscribe to Easy Tutorials YouTube channel to watch more videos on website development and get notifications.</p>
+                <p>Our website offers high-quality Ayurvedic products, expert curation, and the best deals—all in one place for your wellness needs!</p>
             </div>
             <div class="footer-section">
                 <h2>Office</h2>
-                <p>ITPL Road<br>Whitefield, Bangalore<br>Karnataka, PIN 560066, India</p>
-                <p>avinashtdm@outlook.com</p>
+                <p>ring road jnu<br>new delhi<br>delhi, PIN 110067, India</p>
+                <p><i class="fas fa-envelope"></i> lordprabhat@gmail.com</p>
                 <p>+91 - 0123456789</p>
             </div>
             <div class="footer-section">
                 <h2>Links</h2>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Services</a></li>
+                    <li><a href="#">products</a></li>
                     <li><a href="#">About Us</a></li>
-                    <li><a href="#">Features</a></li>
                     <li><a href="#">Contacts</a></li>
                 </ul>
             </div>
