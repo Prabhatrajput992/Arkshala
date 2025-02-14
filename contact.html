@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="header-center">
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="product.html" class="nav-link">Products</a></li>
+                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="cart">
+                <a href="cart.html"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Us Section -->
+    <section class="contact-section">
+        <h2>Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p>We'd love to hear from you! Please fill out the form below to get in touch with us.</p>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Address: Ring Road JNU, New Delhi, Delhi, PIN 110067, India</li>
+                    <li><i class="fas fa-phone-alt"></i> Phone: +91 - 0123456789</li>
+                    <li><i class="fas fa-envelope"></i> Email: lordprabhat@gmail.com</li>
+                </ul>
+            </div>
+            <div class="contact-form">
+                <form action="submit_form.php" method="post">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                    
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- nav link -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get current URL
+            let currentPage = window.location.pathname.split("/").pop();
+        
+            // Select all nav links
+            let navLinks = document.querySelectorAll(".nav-link");
+        
+            // Loop through links and add 'active' class to the current page
+            navLinks.forEach(link => {
+                if (link.getAttribute("href") === currentPage) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2>Myra</h2>
+                <p>Our website offers high-quality Ayurvedic products, expert curation, and the best deals—all in one place for your wellness needs!</p>
+            </div>
+            <div class="footer-section">
+                <h2>Office</h2>
+                <p>Ring Road JNU<br>New Delhi<br>Delhi, PIN 110067, India</p>
+                <p><i class="fas fa-envelope"></i> lordprabhat@gmail.com</p>
+                <p>+91 - 0123456789</p>
+            </div>
+            <div class="footer-section">
+                <h2>Links</h2>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contacts</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h2>Newsletter</h2>
+                <form class="newsletter">
+                    <input type="email" placeholder="Enter your email ID" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Myra. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>
