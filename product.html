@@ -20,8 +20,8 @@
                 </ul>
             </nav>
             <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search products..." oninput="searchProducts()">
-                <button onclick="searchProducts()">Search</button>
+                <input type="text" id="searchInput" placeholder="Search products..." oninput="searchProducts()" style="display: none;">
+                <button id="searchButton" onclick="toggleSearch()">🔍</button>
             </div>
             <div class="cart">
                 <a href="cart.html"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a>
@@ -143,6 +143,16 @@
         function updateCartCount() {
             const cartCount = cart.reduce((total, product) => total + product.quantity, 0);
             document.getElementById('cart-count').textContent = cartCount;
+        }
+
+        function toggleSearch() {
+            const searchInput = document.getElementById("searchInput");
+            if (searchInput.style.display === "none") {
+                searchInput.style.display = "block";
+                searchInput.focus();
+            } else {
+                searchProducts();
+            }
         }
     </script>
 
