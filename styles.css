@@ -1,16 +1,21 @@
 /* General Body Styling */
-
-/* Header Styling */
 body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
 
+/* Header Styling */
 header {
     background-color: white;
-    padding: 10px 20px;
     border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #eef1ee;
+    color: rgb(8, 0, 0);
 }
 
 .navbar {
@@ -40,7 +45,6 @@ header {
 }
 
 .nav-links .active {
-    /* background-color: #007bff; */
     color: rgb(59, 33, 234);
     padding: 5px 10px;
     border-radius: 5px;
@@ -52,6 +56,7 @@ header {
     color: green;
     display: flex;
     align-items: center;
+    margin: 0;
 }
 
 .logo i {
@@ -67,6 +72,60 @@ header {
 .nav-links li a:hover,
 .nav-links li a.active {
     color: #3498db;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        display: none;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+
+    .navbar {
+        flex-direction: column;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .icons {
+        order: 1;
+        margin-bottom: 10px;
+    }
+
+    .logo {
+        order: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 20px;
+    }
+
+    .nav-links li a {
+        font-size: 14px;
+    }
+
+    .icons i {
+        font-size: 18px;
+    }
 }
 
 /* Hero Section Styling */
@@ -170,7 +229,6 @@ h3 {
 }
 
 /* Product Grid Styling */
-/* General Styling */
 .product-section {
     text-align: center;
     padding: 40px 20px;
@@ -196,6 +254,51 @@ h3 {
     width: 100%;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    background-color: #095ab1;
+    color: white;
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background-color: #0056b3;
+}
+
+.pagination button:focus {
+    outline: 2px solid #0056b3;
+    outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pagination {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .pagination button {
+        width: 100%;
+    }
+}
+
 /* Product Card Styling */
 .product {
     background: #fff;
@@ -204,7 +307,6 @@ h3 {
     overflow: hidden;
     padding: 15px;
     transition: transform 0.3s ease-in-out;
-    
     text-align: left;
 }
 
@@ -214,8 +316,8 @@ h3 {
 
 .product img {
     width: 100%;
-    height: 200px; /* Ensure all images are the same height */
-    object-fit: cover; /* Maintain aspect ratio and cover the area */
+    height: 200px;
+    object-fit: cover;
     border-radius: 8px;
     display: block;
 }
@@ -277,9 +379,7 @@ h3 {
 
 /* see more button */
 .see-more-btn {
-    display: block;
-    /* margin: 0 auto; */
-    text-align: center;
+    display: inline-block;
     background-color: #3498db;
     color: #fff;
     padding: 10px 20px;
@@ -287,7 +387,7 @@ h3 {
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    margin: 0 auto; /* Center the button horizontally */
+    margin: 0 auto;
 }
 
 .see-more-btn:hover {
@@ -295,378 +395,16 @@ h3 {
 }
 
 .container {
-    text-align: center; /* Center the button container */
-}
-
-/* Footer Styling */
-/* footer {
-    padding: 20px;
-    background-color: #4CAF50;
-    margin-top: 20px;
-    color: white;
-} */
-
-/* search bar */
-.search-bar {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Align items to the right */
-}
-
-#searchInput {
-    display: none; /* Initially hide the search input */
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    /* margin-right: 10px; Add margin to the right of the input */
-}
-
-#searchButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-    padding: 5px;
-}
-
-#searchButton:focus {
-    outline: none;
-}
-
-/* About Us Section */
-.container {
-    background: white;
-    padding: 40px;
-    margin-top: 10px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    align-items: center;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-.left {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-h1 {
     text-align: center;
-    grid-column: span 2;
-    font-size: 24px;
-    letter-spacing: 2px;
-    color: #4CAF50;
-}
-
-.section {
-    padding-bottom: 10px;
-}
-
-.section h2 {
-    font-size: 18px;
-    margin: 0;
-    color: #4CAF50;
-}
-
-.section p {
-    font-size: 14px;
-    color: #666666;
-}
-
-.view-more {
-    color: #ff9900;
-    font-size: 14px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.view-more:hover {
-    text-decoration: underline;
-}
-
-.right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.profile-img {
-    width: 100%;
-    max-width: 250px;
-    height: auto;
-    border-radius: 5px;
-}
-
-.contact {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.contact p {
-    font-size: 16px;
-    margin: 5px 0;
-    color: #333333;
-}
-
-.contact strong {
-    font-size: 22px;
-    color: #4CAF50;
-}
-
-/* Team Section */
-.team-section {
-    text-align: center;
-}
-
-.team-section h2 {
-    margin-top: 50px;
-    font-size: 32px;
-    color: #4CAF50;
-}
-
-.team-section p {
-    margin-bottom: 20px;
-    color: #010d01;
-    font-size: 18px;
-}
-
-.team-title {
-    font-size: 32px;
-    font-weight: bold;
-}
-
-.team-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 150px;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.team-member {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    text-align: center;
-    width: 250px;
-    padding: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.team-member img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
-.team-member h3 {
-    margin: 10px 0;
-    font-size: 20px;
-}
-
-.team-member p {
-    color: gray;
-    font-size: 16px;
-}
-
-.social-icons {
-    margin-top: 10px;
-}
-
-.social-icons a {
-    text-decoration: none;
-    margin: 0 5px;
-    font-size: 20px;
-    color: #555;
-}
-
-/* Achievements Section */
-.achievements {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.achievement-box {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 22%;
-}
-
-.achievement-box img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
-}
-
-.achievement-box h3 {
-    font-size: 24px;
-    color: #4CAF50;
-    margin: 10px 0;
-}
-
-.achievement-box p {
-    font-size: 16px;
-    color: #555;
-}
-
-/* Contact Us Section */
-.contact-section {
-    padding: 50px 20px;
-    background-color: #f9f9f9;
-}
-
-.contact-section h2 {
-    text-align: center;
-    font-size: 32px;
-    color: #4CAF50;
-    margin-bottom: 20px;
-}
-
-.contact-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.contact-info {
-    flex: 1;
-    min-width: 300px;
-}
-
-.contact-info h3 {
-    font-size: 24px;
-    color: #4CAF50;
-    margin-bottom: 10px;
-}
-
-.contact-info p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.contact-info ul {
-    list-style: none;
-    padding: 0;
-}
-
-.contact-info ul li {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 10px;
-}
-
-.contact-info ul li i {
-    margin-right: 10px;
-    color: #4CAF50;
-}
-
-.contact-form {
-    flex: 1;
-    min-width: 300px;
-}
-
-.contact-form form {
-    display: flex;
-    flex-direction: column;
-}
-
-.contact-form label {
-    font-size: 16px;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-.contact-form input,
-.contact-form textarea {
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.contact-form button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.contact-form button:hover {
-    background-color: #388e3c;
-}
-
-/* Reviews Section */
-.reviews-section {
-    padding: 50px 20px;
-    background-color: #f9f9f9;
-    flex-direction: row;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 32px;
-    color: #4CAF50;
-    margin-bottom: 20px;
-}
-
-.reviews-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.review-card {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 30%;
-}
-
-.review-card .stars {
-    font-size: 20px;
-    color: #ff9900;
-}
-
-.review-card .review-title {
-    font-size: 24px;
-    color: #4CAF50;
-    margin: 10px 0;
-}
-
-.review-card .review-text {
-    font-size: 16px;
-    color: #555;
-    margin: 10px 0;
-}
-
-.review-card .review-author {
-    font-size: 14px;
-    color: #888;
 }
 
 /* Footer Styling */
 footer {
-    background: linear-gradient(to right, #4CAF50, #8bc34a);
+    padding: 20px;
+    background-color: #4CAF50;
+    margin-top: 20px;
     color: white;
+    background: linear-gradient(to right, #4CAF50, #8bc34a);
     padding: 40px 5%;
     position: relative;
     border-top-left-radius: 100px;
@@ -755,28 +493,46 @@ footer {
 
 /* Responsive Design for Mobile Devices */
 @media (max-width: 768px) {
-    .nav-links {
+    header {
         flex-direction: column;
         align-items: center;
-        width: 100%;
-        display: none;
     }
 
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links li {
-        margin: 10px 0;
-    }
-
-    .navbar {
+    .header-center {
         flex-direction: column;
+        align-items: center;
     }
 
-    .icons {
-        order: -1;
-        margin-bottom: 10px;
+    .team-section h2 {
+        font-size: 28px;
+    }
+
+    .team-section p {
+        font-size: 16px;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .cart {
+        margin-left: 0;
+    }
+
+    nav ul li {
+        width: 100%;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 10px 0;
     }
 
     .hero {
@@ -892,17 +648,16 @@ footer {
         padding: 6px 12px;
         font-size: 12px;
     }
-   
-    .logo h1 {
-        font-size: 20px;
+    .logo img {
+        height: 30px;
     }
 
-    .nav-links li a {
-        font-size: 14px;
+    nav ul {
+        gap: 5px;
     }
 
-    .icons i {
-        font-size: 18px;
+    nav ul li a {
+        padding: 8px 0;
     }
 
     .hero-content h1 {
