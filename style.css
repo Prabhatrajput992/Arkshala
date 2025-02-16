@@ -319,6 +319,21 @@ h3 {
     border: 1px solid #ccc;
     border-radius: 5px;
     /* margin-right: 10px; Add margin to the right of the input */
+    position: relative;
+}
+
+#searchInput:after {
+    content: '✖';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    display: none;
+}
+
+#searchInput.show-clear:after {
+    display: block;
 }
 
 #searchButton {
@@ -873,6 +888,18 @@ footer {
         padding: 8px 16px;
         font-size: 14px;
     }
+
+    #searchBarContainer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    #searchBar {
+        width: 90%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -972,4 +999,20 @@ footer {
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+}
+
+#searchBarContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+#searchBar {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }

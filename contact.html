@@ -27,10 +27,7 @@
             <div class="logo">
                 <h1>Anna Finds <i class="fas fa-search"></i></h1>
             </div>
-            <div class="icons">
-                <i class="fas fa-search"></i>
-                <i class="fas fa-shopping-bag"></i>
-            </div>
+            
         </div>
     </header>
  
@@ -81,6 +78,33 @@
                 }
             });
         });
+
+        function toggleSearchBar() {
+            var searchBarContainer = document.getElementById('searchBarContainer');
+            if (searchBarContainer.style.display === 'none') {
+                searchBarContainer.style.display = 'block';
+            } else {
+                searchBarContainer.style.display = 'none';
+            }
+        }
+
+        function handleSearchKey(event) {
+            if (event.key === 'Enter') {
+                searchProducts();
+            }
+        }
+
+        function clearSearchBar() {
+            var searchBar = document.getElementById('searchBar');
+            searchBar.value = '';
+            searchBar.focus();
+            document.getElementById('searchBarContainer').style.display = 'none';
+        }
+
+        function toggleMenu() {
+            var navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
     </script>
 
     <!-- Footer Section -->

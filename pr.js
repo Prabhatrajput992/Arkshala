@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', function() {
             item.classList.add('active');
         }
     });
+
+    // Ensure search input is hidden initially
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.style.display = 'none';
+        searchInput.addEventListener('input', searchProducts); // Call searchProducts on input change
+    }
 });
 
 // Slider
@@ -169,11 +176,18 @@ function updateCartCount() {
 // Search icon
 function toggleSearch() {
     const searchInput = document.getElementById('searchInput');
+    if (!searchInput) {
+        console.error('Search input element not found');
+        return;
+    }
     if (searchInput.style.display === 'none' || searchInput.style.display === '') {
         searchInput.style.display = 'block';
         searchInput.focus();
     } else {
         searchInput.style.display = 'none';
+        searchInput.value = ''; // Clear search input when hiding
+        renderProducts(); // Re-render products to show all
+        updatePaginationButtons();
     }
 }
 
@@ -181,3 +195,5 @@ function toggleSearch() {
 function toggleMenu() {
     document.querySelector(".nav-links").classList.toggle("active");
 }
+
+

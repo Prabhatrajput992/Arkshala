@@ -6,75 +6,106 @@
     <title>Product Showcase</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="pr.js">
+   
+    <script src="js/products.js" defer></script>
 </head>
 <body>
     <!-- Header Section -->
+     
     <header>
         <div class="navbar">
             <div class="menu-toggle" onclick="toggleMenu()">
                 <i class="fas fa-bars"></i>
             </div>
             <nav>
-                <nav>
-                    <ul class="nav-links">
-                        <li><a href="index.html" class="active">Home</a></li>
-                        <li><a href="product.html">Shop All</a></li>
-                        <li><a href="about.html">about us</a></li>
-                        <li><a href="contact.html">Contact us</a></li>
-                    </ul>
-                </nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="product.html">Shop All</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
             </nav>
             <div class="logo">
                 <h1>Anna Finds <i class="fas fa-search"></i></h1>
             </div>
             <div class="icons">
-                <i class="fas fa-search"></i>
+                <i class="fas fa-search" onclick="toggleSearchBar()"></i>
                 <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count">0</span> <!-- Added cart count display -->
             </div>
         </div>
     </header>
-   
+
+    <!-- Search Section -->
+    <div id="searchBarContainer" style="display: none;">
+        <input type="text" id="searchBar" placeholder="Search..." onkeydown="handleSearchKey(event)">
+        <i class="fas fa-times" onclick="clearSearchBar()"></i>
+    </div>
+    <script src="pr.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function toggleSearchBar() {
+            var searchBarContainer = document.getElementById('searchBarContainer');
+            if (searchBarContainer.style.display === 'none') {
+                searchBarContainer.style.display = 'block';
+            } else {
+                searchBarContainer.style.display = 'none';
+            }
+        }
+
+        function handleSearchKey(event) {
+            if (event.key === 'Enter') {
+                searchProducts();
+            }
+        }
+
+        function clearSearchBar() {
+            var searchBar = document.getElementById('searchBar');
+            searchBar.value = '';
+            searchBar.focus();
+            document.getElementById('searchBarContainer').style.display = 'none';
+        }
+
+        function toggleMenu() {
+            var navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+    </script>
 
     <!-- Product Grid Section -->
     <section class="product-section">
         <h2>Featured Products</h2>
         <div class="product-grid" id="productGrid"></div>
-
-        <!-- Pagination Controls -->
-        <div class="pagination">
-            <button id="prevBtn" onclick="changePage(-1)">Previous</button>
-            <button id="nextBtn" onclick="changePage(1)">Next</button>
-        </div>
     </section>
-
-   
 
     <script>
         let products = [];
-        let currentPage = 1;
-        const itemsPerPage = 10;
         let cart = [];
 
         // Fetch product data from JSON file
         fetch('product.json')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
+                console.log("Products loaded:", data); // Debug log
                 products = data;
                 renderProducts();
-                renderPagination();
             })
-            .catch(error => console.error("Error loading products:", error));
+            .catch(error => {
+                console.error("Error loading products:", error);
+                renderProducts(); // Render sample product if there's an error
+            });
 
         function renderProducts(filteredProducts = products) {
+            console.log("Rendering products:", filteredProducts); // Debug log
             const productContainer = document.getElementById("productGrid");
             productContainer.innerHTML = "";
 
-            const start = (currentPage - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const paginatedItems = filteredProducts.slice(start, end);
-
-            paginatedItems.forEach(product => {
+            filteredProducts.forEach(product => {
                 const card = `
                     <div class="product">
                         <img src="${product.image}" alt="${product.name}">
@@ -91,49 +122,12 @@
                 `;
                 productContainer.innerHTML += card;
             });
-
-            updatePaginationButtons(filteredProducts);
-        }
-
-        function renderPagination(filteredProducts = products) {
-            const paginationContainer = document.getElementById("pageNumbers");
-            paginationContainer.innerHTML = "";
-
-            const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-
-            for (let i = 1; i <= totalPages; i++) {
-                const pageBtn = document.createElement("button");
-                pageBtn.innerText = i;
-                pageBtn.classList.toggle("active", i === currentPage);
-                pageBtn.onclick = function () {
-                    currentPage = i;
-                    renderProducts(filteredProducts);
-                    renderPagination(filteredProducts);
-                };
-                paginationContainer.appendChild(pageBtn);
-            }
-        }
-
-        function updatePaginationButtons(filteredProducts = products) {
-            document.getElementById("prevBtn").disabled = currentPage === 1;
-            document.getElementById("nextBtn").disabled = currentPage >= Math.ceil(filteredProducts.length / itemsPerPage);
-        }
-
-        function changePage(step) {
-            const totalPages = Math.ceil(products.length / itemsPerPage);
-            if (currentPage + step >= 1 && currentPage + step <= totalPages) {
-                currentPage += step;
-                renderProducts();
-                renderPagination();
-            }
         }
 
         function searchProducts() {
-            const query = document.getElementById("searchInput").value.toLowerCase();
+            const query = document.getElementById("searchBar").value.toLowerCase();
             const filteredProducts = products.filter(product => product.name.toLowerCase().includes(query));
-            currentPage = 1;
             renderProducts(filteredProducts);
-            renderPagination(filteredProducts);
         }
 
         function addToCart(productName, quantity) {
@@ -150,16 +144,6 @@
             const cartCount = cart.reduce((total, product) => total + product.quantity, 0);
             document.getElementById('cart-count').textContent = cartCount;
         }
-
-        function toggleSearch() {
-            const searchInput = document.getElementById("searchInput");
-            if (searchInput.style.display === "none") {
-                searchInput.style.display = "block";
-                searchInput.focus();
-            } else {
-                searchProducts();
-            }
-        }
     </script>
 
     <!-- active navbar -->
@@ -169,7 +153,7 @@
             let currentPage = window.location.pathname.split("/").pop();
         
             // Select all nav links
-            let navLinks = document.querySelectorAll(".nav-link");
+            let navLinks = document.querySelectorAll(".nav-links a");
         
             // Loop through links and add 'active' class to the current page
             navLinks.forEach(link => {
@@ -197,7 +181,7 @@
                 <h2>Links</h2>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">products</a></li>
+                    <li><a href="#">Products</a></li>
                     <li><a href="#">About Us</a></li>
                     <li><a href="#">Contacts</a></li>
                 </ul>
